@@ -27,6 +27,7 @@ class OrderOutput(TypedDict):
 
 class State(OrderInput, OrderOutput):
     suggestions_count: int
+    original_item: str
 
 
 def build_graph(stock=None):
@@ -44,7 +45,8 @@ def build_graph(stock=None):
         return {'item': s.get('item', ''), 'quantity': s.get('quantity', 0),
                 'day': s.get('day', ''), 'city': s.get('city', ''),
                 'status': 'accepted', 'delivery': 'pickup', 'total': 0.0,
-                'message': '', 'steps': ['initialize: order received'], 'suggestions_count': 0}
+                'message': '', 'steps': ['initialize: order received'], 'suggestions_count': 0,
+                'original_item': ''}
 
     def validate(s):
         item = s['item'].strip().lower() if isinstance(s['item'], str) else ''
@@ -57,7 +59,7 @@ def build_graph(stock=None):
             'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
         } or not isinstance(s['city'], str):
             reason = "I'm sorry, please provide a valid weekday and a city as text."
-        return {'item': item, 'status': 'rejected' if reason else 'accepted',
+        return {'item': item, 'original_item': item, 'status': 'rejected' if reason else 'accepted',
                 'message': reason,
                 'steps': s['steps'] + ['validate: ' + (reason or 'valid order')]}
 
@@ -92,13 +94,24 @@ def build_graph(stock=None):
 
     def price(s):
         goods = Decimal(PRICES[s['item']]) * s['quantity']
-        discount = goods * Decimal('0.15') if goods > 150 and s['day'].strip().lower() != 'friday' else Decimal(0)
+        friday = s['day'].strip().lower() == 'friday'
+        discount = goods * Decimal('0.15') if goods > 150 and not friday else Decimal(0)
         fee = 20 if s['delivery'] == 'delivery' else 0
         total = (goods - discount + fee).quantize(Decimal('0.01'))
-        return {'total': float(total), 'message': s['message'] +
-                f"Lovely! Your {s['quantity']} × {s['item']} are reserved for {s['delivery']}. " +
-                ("I've included your 15% baked-goods discount. " if discount else '') +
-                f"Your total is {total:.2f}₪. Thank you for ordering! — Dana",
+        receipt = [f"Lovely! Your {s['quantity']} × {s['item']} are reserved for {s['delivery']}."]
+        if s['suggestions_count']:
+            receipt.append(f"Substitution: {s['original_item']} → {s['item']} (same quantity: {s['quantity']}).")
+        receipt.extend(['', f"Baked goods: {s['quantity']} × {PRICES[s['item']]:.2f}₪ = {goods:.2f}₪"])
+        if discount:
+            receipt.append(f'Your 15% baked-goods discount: −{discount:.2f}₪')
+        elif friday:
+            receipt.append('Discount: 0.00₪ — discounts take a break on Fridays.')
+        else:
+            receipt.append('Discount: 0.00₪ — 15% off applies when baked goods exceed 150.00₪.')
+        receipt.extend([f'Jerusalem delivery: {fee:.2f}₪' if fee else 'Pickup: 0.00₪',
+                        f'Total: {total:.2f}₪', '', 'Thank you for ordering! — Dana'])
+        prefix = s['message'].strip()
+        return {'total': float(total), 'message': (prefix + '\n\n' if prefix else '') + '\n'.join(receipt),
                 'steps': s['steps'] + [f'price: goods={goods}; discount={discount}; delivery={fee}; total={total}']}
 
     def finish(s):

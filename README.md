@@ -43,6 +43,11 @@ to pickup with an explanation. Each next product checked counts as one suggestio
 the first available candidate is selected automatically, with a maximum of two.
 On rejection, `item` is the last attempted item and `total` is zero.
 
+Accepted orders include an itemized receipt in `message`: quantity and unit price,
+baked-goods subtotal, discount or eligibility explanation, delivery or free pickup,
+and final total. Substitutions show the original and final products. This bonus
+preserves the six output keys and explains Friday's discount exclusion.
+
 The notebook calls `draw_mermaid_png()`; its default renderer uses an external
 Mermaid rendering service. If unavailable, Mermaid text is displayed instead.
 

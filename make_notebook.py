@@ -21,6 +21,8 @@ conversion. Substitution is automatic: each next candidate counts as one attempt
 including unavailable candidates, and at most two candidates are checked.
 On rejection, `item` records the last attempted product and `total` is zero.
 Prices use Decimal arithmetic; the output total is a float in shekels.
+Accepted messages include itemized receipts, discount explanations, and any
+original-to-final product substitution, keeping the same six output keys.
 
 The diagram cell uses `draw_mermaid_png()`, whose default renderer requires
 network access to Mermaid's rendering service. Order processing runs locally.

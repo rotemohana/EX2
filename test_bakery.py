@@ -50,6 +50,29 @@ class BakeryTests(unittest.TestCase):
         for qty in [True, 1.5, '2', None]:
             self.assertEqual(graph.invoke({**order, 'quantity': qty})['status'], 'rejected')
 
+    def test_receipts(self):
+        for label, item, quantity, day, city, status, final, mode, total, attempts in CASES:
+            with self.subTest(label=label):
+                message = graph.invoke(dict(item=item, quantity=quantity, day=day, city=city))['message']
+                if status == 'rejected':
+                    self.assertNotIn('Baked goods:', message)
+                    self.assertNotIn('Total:', message)
+                    continue
+                self.assertIn(f'Total: {total:.2f}₪', message)
+                self.assertIn('Jerusalem delivery: 20.00₪' if mode == 'delivery' else 'Pickup: 0.00₪', message)
+                if attempts:
+                    self.assertIn(f'Substitution: {item} → {final} (same quantity: {quantity}).', message)
+                else:
+                    self.assertNotIn('Substitution:', message)
+                if label == 'discount':
+                    self.assertIn('Baked goods: 10 × 18.00₪ = 180.00₪', message)
+                    self.assertIn('Your 15% baked-goods discount: −27.00₪', message)
+                elif label == 'Friday':
+                    self.assertIn('Discount: 0.00₪ — discounts take a break on Fridays.', message)
+                    self.assertNotIn('−27.00₪', message)
+                elif label == 'pickup':
+                    self.assertIn('baked goods exceed 150.00₪', message)
+
 
 if __name__ == '__main__':
     unittest.main()
