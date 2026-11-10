@@ -1,0 +1,134 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dana's Bakery · Your receipts</title><style>
+    *{box-sizing:border-box}body{margin:0;background:#f7f1e8;color:#35251e;font-family:Arial,sans-serif}
+    header{background:#3e2923;color:#fff5e5;padding:42px max(24px,calc((100% - 1180px)/2))}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:3px;color:#edc49a}
+    h1{font-family:Georgia,serif;font-size:clamp(32px,5vw,54px);margin:12px 0}header p{color:#edd9c9;line-height:1.6}
+    main{max-width:1228px;margin:auto;padding:28px 24px}.summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+    .summary span{background:#ede1d2;padding:12px 18px;border-radius:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px;align-items:start}
+    .receipt{background:#fffdf8;border:1px solid #e4d7c6;border-radius:18px;padding:26px;box-shadow:0 7px 22px #4630240a}
+    .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#806a5b;font-size:11px;letter-spacing:1px}
+    .badge{padding:7px 10px;border-radius:20px;font-weight:bold;letter-spacing:0}.ok{background:#e3eee0;color:#335a34}.cancelled{background:#f7e2dc;color:#903f30}
+    h2{font-family:Georgia,serif;font-size:27px;margin:22px 0 10px}.meta{color:#806a5b;font-size:13px;line-height:1.8;padding-bottom:18px;border-bottom:1px dashed #d6c4b0}
+    .message{font-size:14px;line-height:1.7;overflow-wrap:anywhere}.total-line{font-weight:bold}.amount{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;padding:18px 0;border-top:1px dashed #d6c4b0}.amount span{color:#806a5b;font-size:13px}.amount strong{font-size:27px}
+    details{border-top:1px solid #eee3d5;padding-top:16px;font-size:12px;color:#806a5b}summary{cursor:pointer}li{margin:9px 0;overflow-wrap:anywhere}
+    footer{text-align:center;padding:32px;color:#806a5b;font-size:12px}
+    @media print{body{background:white}header{background:white;color:#35251e}header p,.eyebrow{color:#806a5b}.summary{display:none}.grid{display:block}.receipt{break-inside:avoid;margin-bottom:20px;box-shadow:none}details{display:none}}
+    </style></head><body><header><div class="eyebrow">Freshly baked · Made with care</div>
+    <h1>Dana's Bakery</h1><p>Your orders, beautifully wrapped up.<br>Every total explained, every substitution shown.</p></header><main>
+    <div class="summary"><span>14 orders</span><span>8 accepted</span><span>6 cancelled</span></div>
+    <section class="grid" aria-label="Order receipts"><article class="receipt">
+          <div class="card-top"><span>ORDER 001</span><span class="badge ok">Accepted</span></div>
+          <h2>Delivery</h2>
+          <p class="meta">Requested: 2 × challah<br>
+          Monday · Jerusalem</p>
+          <div class="message"><div class="line">Lovely! Your 2 × challah are reserved for delivery.</div><div class="line">&nbsp;</div><div class="line">Baked goods: 2 × 18.00₪ = 36.00₪</div><div class="line">Discount: 0.00₪ — 15% off applies when baked goods exceed 150.00₪.</div><div class="line">Jerusalem delivery: 20.00₪</div><div class="line total-line">Total: 56.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>56.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: delivery; fee 20₪</li><li>stock: challah; sufficient</li><li>price: goods=36; discount=0; delivery=20; total=56.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 002</span><span class="badge ok">Accepted</span></div>
+          <h2>Pickup</h2>
+          <p class="meta">Requested: 2 × sourdough<br>
+          Thursday · Pickup at the bakery</p>
+          <div class="message"><div class="line">Lovely! Your 2 × sourdough are reserved for pickup.</div><div class="line">&nbsp;</div><div class="line">Baked goods: 2 × 25.00₪ = 50.00₪</div><div class="line">Discount: 0.00₪ — 15% off applies when baked goods exceed 150.00₪.</div><div class="line">Pickup: 0.00₪</div><div class="line total-line">Total: 50.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>50.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: sourdough; sufficient</li><li>price: goods=50; discount=0; delivery=0; total=50.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 003</span><span class="badge ok">Accepted</span></div>
+          <h2>Discount</h2>
+          <p class="meta">Requested: 10 × challah<br>
+          Monday · Jerusalem</p>
+          <div class="message"><div class="line">Lovely! Your 10 × challah are reserved for delivery.</div><div class="line">&nbsp;</div><div class="line">Baked goods: 10 × 18.00₪ = 180.00₪</div><div class="line">Your 15% baked-goods discount: −27.00₪</div><div class="line">Jerusalem delivery: 20.00₪</div><div class="line total-line">Total: 173.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>173.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: delivery; fee 20₪</li><li>stock: challah; sufficient</li><li>price: goods=180; discount=27.00; delivery=20; total=173.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 004</span><span class="badge ok">Accepted</span></div>
+          <h2>Friday</h2>
+          <p class="meta">Requested: 10 × challah<br>
+          Friday · Jerusalem</p>
+          <div class="message"><div class="line">Lovely! Your 10 × challah are reserved for delivery.</div><div class="line">&nbsp;</div><div class="line">Baked goods: 10 × 18.00₪ = 180.00₪</div><div class="line">Discount: 0.00₪ — discounts take a break on Fridays.</div><div class="line">Jerusalem delivery: 20.00₪</div><div class="line total-line">Total: 200.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>200.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: delivery; fee 20₪</li><li>stock: challah; sufficient</li><li>price: goods=180; discount=0; delivery=20; total=200.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 005</span><span class="badge ok">Accepted</span></div>
+          <h2>Outside</h2>
+          <p class="meta">Requested: 2 × challah<br>
+          Monday · Tel Aviv</p>
+          <div class="message"><div class="line">I&#x27;m sorry, we only deliver inside Jerusalem, so I&#x27;ve arranged free pickup for you.</div><div class="line">&nbsp;</div><div class="line">Lovely! Your 2 × challah are reserved for pickup.</div><div class="line">&nbsp;</div><div class="line">Baked goods: 2 × 18.00₪ = 36.00₪</div><div class="line">Discount: 0.00₪ — 15% off applies when baked goods exceed 150.00₪.</div><div class="line">Pickup: 0.00₪</div><div class="line total-line">Total: 36.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>36.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: challah; sufficient</li><li>price: goods=36; discount=0; delivery=0; total=36.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 006</span><span class="badge ok">Accepted</span></div>
+          <h2>First Substitute</h2>
+          <p class="meta">Requested: 2 × babka<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">We&#x27;re short of babka; let me try rugelach for you.</div><div class="line">&nbsp;</div><div class="line">Lovely! Your 2 × rugelach are reserved for pickup.</div><div class="line">Substitution: babka → rugelach (same quantity: 2).</div><div class="line">&nbsp;</div><div class="line">Baked goods: 2 × 30.00₪ = 60.00₪</div><div class="line">Discount: 0.00₪ — 15% off applies when baked goods exceed 150.00₪.</div><div class="line">Pickup: 0.00₪</div><div class="line total-line">Total: 60.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>60.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: babka; insufficient</li><li>substitute: suggestion 1: rugelach</li><li>stock: rugelach; sufficient</li><li>price: goods=60; discount=0; delivery=0; total=60.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 007</span><span class="badge ok">Accepted</span></div>
+          <h2>Second Substitute</h2>
+          <p class="meta">Requested: 4 × babka<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">We&#x27;re short of babka; let me try rugelach for you. We&#x27;re short of rugelach; let me try sourdough for you.</div><div class="line">&nbsp;</div><div class="line">Lovely! Your 4 × sourdough are reserved for pickup.</div><div class="line">Substitution: babka → sourdough (same quantity: 4).</div><div class="line">&nbsp;</div><div class="line">Baked goods: 4 × 25.00₪ = 100.00₪</div><div class="line">Discount: 0.00₪ — 15% off applies when baked goods exceed 150.00₪.</div><div class="line">Pickup: 0.00₪</div><div class="line total-line">Total: 100.00₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>100.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: babka; insufficient</li><li>substitute: suggestion 1: rugelach</li><li>stock: rugelach; insufficient</li><li>substitute: suggestion 2: sourdough</li><li>stock: sourdough; sufficient</li><li>price: goods=100; discount=0; delivery=0; total=100.00</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 008</span><span class="badge cancelled">Cancelled</span></div>
+          <h2>Limit</h2>
+          <p class="meta">Requested: 5 × babka<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">We&#x27;re short of babka; let me try rugelach for you. We&#x27;re short of rugelach; let me try sourdough for you. I&#x27;m so sorry, we can&#x27;t fill your full quantity today, so your order is cancelled. We&#x27;d love to bake for you another day! — Dana</div></div>
+          <div class="amount"><span>Nothing to pay</span><strong>0.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: babka; insufficient</li><li>substitute: suggestion 1: rugelach</li><li>stock: rugelach; insufficient</li><li>substitute: suggestion 2: sourdough</li><li>stock: sourdough; insufficient</li><li>reject: no fulfillable substitute within two suggestions</li><li>finish: rejected</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 009</span><span class="badge ok">Accepted</span></div>
+          <h2>Challah Fallback</h2>
+          <p class="meta">Requested: 9 × sourdough<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">We&#x27;re short of sourdough; let me try challah for you.</div><div class="line">&nbsp;</div><div class="line">Lovely! Your 9 × challah are reserved for pickup.</div><div class="line">Substitution: sourdough → challah (same quantity: 9).</div><div class="line">&nbsp;</div><div class="line">Baked goods: 9 × 18.00₪ = 162.00₪</div><div class="line">Your 15% baked-goods discount: −24.30₪</div><div class="line">Pickup: 0.00₪</div><div class="line total-line">Total: 137.70₪</div><div class="line">&nbsp;</div><div class="line">Thank you for ordering! — Dana</div></div>
+          <div class="amount"><span>Amount to pay</span><strong>137.70₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: sourdough; insufficient</li><li>substitute: suggestion 1: challah</li><li>stock: challah; sufficient</li><li>price: goods=162; discount=24.30; delivery=0; total=137.70</li><li>finish: accepted</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 010</span><span class="badge cancelled">Cancelled</span></div>
+          <h2>No Fallback</h2>
+          <p class="meta">Requested: 11 × challah<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">I&#x27;m so sorry, we can&#x27;t fill your full quantity today, so your order is cancelled. We&#x27;d love to bake for you another day! — Dana</div></div>
+          <div class="amount"><span>Nothing to pay</span><strong>0.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: valid order</li><li>delivery: pickup; fee 0₪</li><li>stock: challah; insufficient</li><li>reject: no fulfillable substitute within two suggestions</li><li>finish: rejected</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 011</span><span class="badge cancelled">Cancelled</span></div>
+          <h2>Discontinued</h2>
+          <p class="meta">Requested: 1 × croissants<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">I&#x27;m sorry, croissants isn&#x27;t on our active menu.</div></div>
+          <div class="amount"><span>Nothing to pay</span><strong>0.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: I&#x27;m sorry, croissants isn&#x27;t on our active menu.</li><li>finish: rejected</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 012</span><span class="badge cancelled">Cancelled</span></div>
+          <h2>Unknown</h2>
+          <p class="meta">Requested: 1 × pizza<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">I&#x27;m sorry, pizza isn&#x27;t on our active menu.</div></div>
+          <div class="amount"><span>Nothing to pay</span><strong>0.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: I&#x27;m sorry, pizza isn&#x27;t on our active menu.</li><li>finish: rejected</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 013</span><span class="badge cancelled">Cancelled</span></div>
+          <h2>Zero</h2>
+          <p class="meta">Requested: 0 × challah<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">I&#x27;m sorry, please order a positive whole-number quantity.</div></div>
+          <div class="amount"><span>Nothing to pay</span><strong>0.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: I&#x27;m sorry, please order a positive whole-number quantity.</li><li>finish: rejected</li></ol></details>
+          </article><article class="receipt">
+          <div class="card-top"><span>ORDER 014</span><span class="badge cancelled">Cancelled</span></div>
+          <h2>Negative</h2>
+          <p class="meta">Requested: -2 × challah<br>
+          Monday · Pickup at the bakery</p>
+          <div class="message"><div class="line">I&#x27;m sorry, please order a positive whole-number quantity.</div></div>
+          <div class="amount"><span>Nothing to pay</span><strong>0.00₪</strong></div>
+          <details><summary>How we processed this order</summary><ol><li>initialize: order received</li><li>validate: I&#x27;m sorry, please order a positive whole-number quantity.</li><li>finish: rejected</li></ol></details>
+          </article></section></main>
+    <footer>With love, Dana · Independent quotes against the initial inventory · Print or save this page for your records.</footer></body></html>

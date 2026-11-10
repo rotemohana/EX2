@@ -32,6 +32,32 @@ tests = (root / 'test_bakery.py').read_text(encoding='utf-8').replace(
     "if __name__ == '__main__':\n    unittest.main()", 
     "suite = unittest.defaultTestLoader.loadTestsFromTestCase(BakeryTests)\nresult = unittest.TextTestRunner(verbosity=2).run(suite)\nassert result.wasSuccessful()")
 source = (root / 'bakery.py').read_text(encoding='utf-8').split("if __name__ == '__main__':")[0]
+receipt_source = (root / 'receipts.py').read_text(encoding='utf-8').split("if __name__ == '__main__':")[0]
+gallery = '''from IPython.display import HTML, display
+orders = []
+for label, item, quantity, day, city, *_ in CASES:
+    order = dict(item=item, quantity=quantity, day=day, city=city)
+    orders.append((label, order, graph.invoke(order)))
+
+# Add your own orders here before saving the page:
+# order = dict(item='challah', quantity=10, day='Monday', city='Jerusalem')
+# orders.append(('My order', order, graph.invoke(order)))
+
+receipt_path = save_receipts(orders)
+page = render_receipts(orders)
+display(HTML('<iframe title="Dana bakery receipts" style="width:100%;height:1000px;border:0;border-radius:16px" srcdoc="' + escape(page, quote=True) + '"></iframe>'))
+
+try:
+    from google.colab import files
+    import ipywidgets as widgets
+    download = widgets.Button(description='Download receipt page', icon='download', layout=widgets.Layout(width='240px'))
+    download.on_click(lambda _: files.download(str(receipt_path)))
+    display(download)
+    print('Click Download receipt page, then open bakery_receipts.html in your browser for a full page view.')
+except ImportError:
+    from IPython.display import FileLink
+    display(FileLink(str(receipt_path)))
+'''
 notebook = {'nbformat': 4, 'nbformat_minor': 5,
             'metadata': {'colab': {'name': 'danas_bakery.ipynb'},
                          'kernelspec': {'display_name': 'Python 3', 'language': 'python', 'name': 'python3'}},
@@ -40,7 +66,8 @@ notebook = {'nbformat': 4, 'nbformat_minor': 5,
                       cell('code', 'from IPython.display import Image, display\ntry:\n    display(Image(graph.get_graph().draw_mermaid_png()))\nexcept Exception as exc:\n    print(f"PNG renderer unavailable: {exc}")\n    print(graph.get_graph().draw_mermaid())'),
                       cell('markdown', '## Example orders and automated checks'),
                       cell('code', tests),
-                      cell('code', 'from pprint import pprint\nfor label, item, quantity, day, city, *_ in CASES:\n    print(label)\n    pprint(graph.invoke(dict(item=item, quantity=quantity, day=day, city=city)))')]}
+                      cell('markdown', '## Your receipt page\nRun the following cells to see every order as a designed receipt. Click **Download receipt page**, then open the downloaded HTML file for a full browser page. Edit the orders list to include your own orders.'),
+                      cell('code', receipt_source), cell('code', gallery)]}
 for index, entry in enumerate(notebook['cells']):
     entry['id'] = f'bakery-{index}'
 (root / 'danas_bakery.ipynb').write_text(json.dumps(notebook, ensure_ascii=False, indent=2), encoding='utf-8')
